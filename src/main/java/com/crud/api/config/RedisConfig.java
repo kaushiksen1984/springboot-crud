@@ -1,7 +1,9 @@
 package com.crud.api.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -15,12 +17,22 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
+
+    @Value("${redis.host}")
+    private String redisHost;
+
+    @Value("${redis.port}")
+    private int redisPort;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
 
         RedisStandaloneConfiguration configuration  = new RedisStandaloneConfiguration();
-        configuration.setHostName("localhost");
-        configuration.setPort(6379);
+        LOGGER.info("Redis Host is : " + redisHost);
+        configuration.setHostName(redisHost);
+        LOGGER.info("Redis Port is : " + redisPort);
+        configuration.setPort(redisPort);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(configuration);
         jedisConnectionFactory.getPoolConfig().setMaxIdle(30);
         jedisConnectionFactory.getPoolConfig().setMinIdle(10);

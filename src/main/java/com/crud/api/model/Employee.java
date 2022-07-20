@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import java.io.Serializable;
 
 
@@ -17,7 +15,6 @@ import java.io.Serializable;
 @RedisHash("Employee")
 public class Employee implements Serializable {
     @Id
-    @GeneratedValue
     private int employeeId;
     private String name;
     private String departmentName;

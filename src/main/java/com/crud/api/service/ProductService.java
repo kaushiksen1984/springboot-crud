@@ -1,9 +1,8 @@
 package com.crud.api.service;
 
 import com.crud.api.model.Product;
-import com.crud.api.repository.ProductRepository;
+import com.crud.api.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,42 +11,42 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductRepo productRepo;
 
     public Product saveProduct(Product product) {
 
-        return productRepository.save(product);
+        return productRepo.save(product);
     }
 
     public List<Product> saveProducts(List<Product> products) {
 
-        return productRepository.saveAll(products);
+        return productRepo.saveAll(products);
     }
 
     public List<Product> getProducts() {
 
-        return productRepository.findAll();
+        return productRepo.findAll();
     }
-    @Cacheable(key = "#id", value = "Product")
     public Product getProductById(int id) {
-        return productRepository.findById(id).orElse(null);
+
+        return productRepo.findById(id).orElse(null);
     }
 
     public Product getProductByName(String name) {
-        return productRepository.findByName(name);
+        return productRepo.findByName(name);
     }
 
     public String deleteProduct(int id) {
-        productRepository.deleteById(id);
+        productRepo.deleteById(id);
         return "product removed !! " + id;
     }
 
     public Product updateProduct(Product product) {
-        Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+        Product existingProduct = productRepo.findById(product.getId()).orElse(null);
         existingProduct.setName(product.getName());
         existingProduct.setQuantity(product.getQuantity());
         existingProduct.setPrice(product.getPrice());
-        return productRepository.save(existingProduct);
+        return productRepo.save(existingProduct);
     }
 
 }

@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/findEmployeeByEmployeeId/{employeeId}")
-    @Cacheable(key = "#id",value = "Product")
+    @Cacheable(key = "#employeeId",value = "Product")
     public Employee findProduct(@PathVariable int employeeId) {
 
         return employeeRepository.findEmployeeById(employeeId);
