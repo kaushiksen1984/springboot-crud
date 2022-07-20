@@ -2,7 +2,9 @@
 
 # Database Scripts :
 create database spring;
+
 use spring;
+
 select * from product;
 
 # REST API Endpoints with payloads:
