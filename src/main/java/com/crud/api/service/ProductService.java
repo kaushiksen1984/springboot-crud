@@ -3,6 +3,7 @@ package com.crud.api.service;
 import com.crud.api.model.Product;
 import com.crud.api.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +15,20 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product saveProduct(Product product) {
+
         return productRepository.save(product);
     }
 
     public List<Product> saveProducts(List<Product> products) {
+
         return productRepository.saveAll(products);
     }
 
     public List<Product> getProducts() {
+
         return productRepository.findAll();
     }
-
+    @Cacheable(key = "#id", value = "Product")
     public Product getProductById(int id) {
         return productRepository.findById(id).orElse(null);
     }
