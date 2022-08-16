@@ -1,5 +1,7 @@
 # springboot-crud
 
+root: bloom@09
+
 # Database Scripts :
 create database spring;
 use spring;
